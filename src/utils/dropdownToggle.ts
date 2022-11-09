@@ -1,6 +1,6 @@
 import type { toggleObject } from '$utils/types';
 
-import { dropdownToggle } from './config';
+import { dropdownElement } from './config';
 import { getInputValue } from './hiddenInput';
 
 /**
@@ -10,23 +10,23 @@ import { getInputValue } from './hiddenInput';
  */
 const renderDropdownToggle = function (data: toggleObject) {
   try {
-    if (!dropdownToggle) return;
-
-    const dropdownElement = dropdownToggle.querySelector<HTMLDivElement>(`#w-dropdown-toggle-0`);
-
     if (!dropdownElement) return;
 
+    const dropdownToggle = dropdownElement.querySelector<HTMLDivElement>(`#w-dropdown-toggle-0`);
+
+    if (!dropdownToggle) return;
+
     // Query prefix-dropdown="item" elements
-    const flag = dropdownElement.querySelector<HTMLImageElement>('[data-element="flag"]');
-    const value = dropdownElement.querySelector<HTMLDivElement>('[data-element="value"]');
+    const flag = dropdownToggle.querySelector<HTMLImageElement>('[data-element="flag"]');
+    const value = dropdownToggle.querySelector<HTMLDivElement>('[data-element="value"]');
 
     if (flag) flag.src = data.image;
     if (flag) flag.alt = `${data.name} Flag`;
-    if (value && data.alphaCode !== 'CA' && value && data.alphaCode !== 'US')
-      value.textContent = `${data.prefix}${data.suffix}`;
+    if (value) value.textContent = `${data.prefix}${data.suffix}`;
     if (
       (value && data.alphaCode === 'AQ') ||
       (value && data.alphaCode === 'CA') ||
+      (value && data.alphaCode === 'DO') ||
       (value && data.alphaCode === 'HM') ||
       (value && data.alphaCode === 'KZ') ||
       (value && data.alphaCode === 'PR') ||
@@ -34,7 +34,10 @@ const renderDropdownToggle = function (data: toggleObject) {
       (value && data.alphaCode === 'US')
     )
       value.textContent = `${data.prefix}`;
-    return dropdownElement;
+    if (value && data.alphaCode === 'EH') value.textContent = '+212';
+    if (value && value.textContent === 'undefined') value.textContent = '+ ?';
+
+    return dropdownToggle;
   } catch (error) {
     return [];
   }
@@ -47,11 +50,11 @@ const renderDropdownToggle = function (data: toggleObject) {
  */
 export const updateDropdownToggle = (countryElements: toggleObject[]) => {
   try {
-    const dropdownElement = countryElements.filter((el: toggleObject) => {
+    const countryElement = countryElements.filter((el: toggleObject) => {
       return el.alphaCode === getInputValue();
     });
-
-    return dropdownElement.forEach((data) => renderDropdownToggle(data));
+    // console.log(countryElement);
+    return countryElement.forEach((data) => renderDropdownToggle(data));
   } catch (error) {
     return [];
   }

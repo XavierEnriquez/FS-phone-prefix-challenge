@@ -17,9 +17,7 @@ export const setInputValue = function (data: { alphaCode: unknown }, newItem: HT
     newItem.addEventListener('click', () => {
       if (!inputElement) return;
       sessionStorage.setItem('userSelectedLocation', JSON.stringify(data.alphaCode));
-
       inputElement.setAttribute('value', getSessionStorage());
-
       return;
     });
   } catch (error) {

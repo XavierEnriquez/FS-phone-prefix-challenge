@@ -1,6 +1,6 @@
-import { setInputValue } from '$utils/hiddenInput';
+import { getInputValue, setInputValue } from '$utils/hiddenInput';
 
-import { listElement, listItem } from './config';
+import { dropdownElement, listElement, listItem, phoneForm } from './config';
 
 /**
  * Renders item elements inside dropdown list element
@@ -27,6 +27,46 @@ export const createItem = function (data: {
     listElement?.appendChild(newItem);
 
     setInputValue(data, newItem);
+
+    const defaultSelected = (newItem: HTMLDivElement) => {
+      if (newItem.textContent === getInputValue()) {
+        newItem.classList.add('w--current');
+        newItem.ariaSelected = 'true';
+        newItem.scrollIntoView();
+        newItem.focus();
+      }
+    };
+
+    defaultSelected(newItem);
+
+    listElement?.addEventListener('click', () => {
+      newItem.ariaSelected = 'false';
+      newItem.classList.remove('w--current');
+      if (newItem.textContent === getInputValue()) {
+        newItem.classList.add('w--current');
+        newItem.ariaSelected = 'true';
+      }
+
+      if (newItem.ariaSelected === 'true') {
+        newItem.scrollIntoView();
+        // newItem.focus();
+      }
+    });
+
+    if (!dropdownElement || !phoneForm) return;
+    const dropdownToggle = dropdownElement.querySelector<HTMLDivElement>(`#w-dropdown-toggle-0`);
+    if (!dropdownToggle) return;
+
+    dropdownToggle.addEventListener('click', () => {
+      console.log('DROPDOWN CLICK');
+      if (dropdownToggle.ariaExpanded === 'false') {
+        dropdownToggle.blur();
+      }
+      if (newItem.ariaSelected === 'true') {
+        newItem.scrollIntoView();
+        newItem.focus();
+      }
+    });
 
     return newItem;
   } catch (error) {
