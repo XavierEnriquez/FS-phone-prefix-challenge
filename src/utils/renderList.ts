@@ -1,4 +1,4 @@
-import { setInputValue } from '$utils/hiddenInput';
+import { getInputValue, setInputValue } from '$utils/hiddenInput';
 
 import { listElement, listItem } from './config';
 
@@ -27,6 +27,24 @@ export const createItem = function (data: {
     listElement?.appendChild(newItem);
 
     setInputValue(data, newItem);
+
+    const defaultSelected = (newItem: HTMLDivElement) => {
+      if (newItem.textContent === getInputValue()) {
+        newItem.classList.add('w--current');
+        newItem.ariaSelected = 'true';
+      }
+    };
+
+    defaultSelected(newItem);
+
+    listElement?.addEventListener('click', () => {
+      newItem.ariaSelected = 'false';
+      newItem.classList.remove('w--current');
+      if (newItem.textContent === getInputValue()) {
+        newItem.classList.add('w--current');
+        newItem.ariaSelected = 'true';
+      }
+    });
 
     return newItem;
   } catch (error) {

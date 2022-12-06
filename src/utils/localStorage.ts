@@ -13,11 +13,3 @@ export const getSessionStorage = () => {
 
   return JSON.parse(data);
 };
-
-//   newItem.addEventListener('click', () => {
-//     if (newItem.classList.contains('w--current')) {
-//       newItem.classList.remove(`w--current`);
-//     }
-//     newItem.classList.add(`w--current`);
-//     return;
-//   });

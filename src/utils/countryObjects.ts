@@ -1,8 +1,8 @@
 import type { itemObject } from '$utils/types';
 
 /**
- * Returns array of objects templates with properties
- * from each country passed from REST Country API
+ * Returns a dropdown list item with properties
+ * from each country passed from the REST Country API
  */
 export const itemTemplate = (itemObject: itemObject) => {
   return {

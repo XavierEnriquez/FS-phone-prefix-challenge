@@ -29,7 +29,7 @@ interface itemObject {
 }
 
 /**
- * Sets types for (updateDropdownToggle) function
+ * Sets types for (renderDropdownToggle & updateDropdownToggle) functions
  */
 interface toggleObject {
   image: string;
