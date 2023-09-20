@@ -6,7 +6,7 @@ import { timeout } from '$utils/timeout';
  * @returns data with country flag image, phone prefixes and ISO 3166-1 alpha-2 codes
  */
 
-export const getData = async () => {
+export const fetchApi = async () => {
   try {
     const fetchPromise = await fetch(`${API_URL}`);
     const response: [] = await Promise.race([fetchPromise.json(), timeout(TIMEOUT_SEC)]);

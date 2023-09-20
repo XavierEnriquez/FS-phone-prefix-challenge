@@ -3,7 +3,7 @@ import { closeDropdown } from '@finsweet/ts-utils';
 
 import { dropdownElement, dropdownToggle, listElement } from '$utils/config';
 import { itemTemplate } from '$utils/countryObjects';
-import { getData } from '$utils/fetchAPI';
+import { fetchApi } from '$utils/fetchAPI';
 import { getGeolocation } from '$utils/geolocation';
 import { createItem } from '$utils/renderList';
 import type { compareAB } from '$utils/types';
@@ -18,7 +18,7 @@ window.Webflow.push(() => {
 
     localStorage.userLocation = JSON.stringify(userGeolocation);
 
-    const countryData = await getData();
+    const countryData = await fetchApi();
     countryData.sort((a: compareAB, b: compareAB) => a.cca2.localeCompare(b.cca2));
 
     const countryElements = countryData.map(function (el) {
