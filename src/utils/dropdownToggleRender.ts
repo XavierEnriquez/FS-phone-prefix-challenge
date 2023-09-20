@@ -1,6 +1,6 @@
 import type { toggleObject } from '$utils/types';
 
-import { dropdownElement } from './config';
+import { dropdownElement, dropdownToggle, flag, value } from './config';
 
 /**
  * Function called inside dropdownToggle function
@@ -9,28 +9,11 @@ import { dropdownElement } from './config';
  */
 export const renderDropdownToggle = function (data: toggleObject) {
   try {
-    if (!dropdownElement) return;
-    const dropdownToggle = dropdownElement.querySelector<HTMLDivElement>(`#w-dropdown-toggle-0`);
+    if (!dropdownElement || !dropdownToggle) return;
 
-    if (!dropdownToggle) return;
-
-    // Query selectors for prefix-dropdown="item" elements
-    const flag = dropdownToggle.querySelector<HTMLImageElement>('[data-element="flag"]');
-    const value = dropdownToggle.querySelector<HTMLDivElement>('[data-element="value"]');
-
-    if (flag) flag.src = data.image;
-    if (flag) flag.alt = `${data.name} Flag`;
+    if (flag) (flag.src = data.image), (flag.alt = `${data.name} Flag`);
     if (value) value.textContent = `${data.prefix}${data.suffix}`;
-    if (
-      (value && data.alphaCode === 'AQ') ||
-      (value && data.alphaCode === 'CA') ||
-      (value && data.alphaCode === 'DO') ||
-      (value && data.alphaCode === 'HM') ||
-      (value && data.alphaCode === 'KZ') ||
-      (value && data.alphaCode === 'PR') ||
-      (value && data.alphaCode === 'RU') ||
-      (value && data.alphaCode === 'US')
-    )
+    if (value && data.alphaCode === ('AQ' || 'CA' || 'DO' || 'HM' || 'KZ' || 'PR' || 'RU' || 'US'))
       value.textContent = `${data.prefix}`;
     if (value && data.alphaCode === 'EH') value.textContent = '+212';
     if (value && value.textContent === 'undefined') value.textContent = '+ ?';

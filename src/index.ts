@@ -1,18 +1,18 @@
 import '@finsweet/ts-utils';
 import { closeDropdown } from '@finsweet/ts-utils';
 
-import { dropdownElement, listElement } from '$utils/config';
+import { dropdownElement, dropdownToggle, listElement } from '$utils/config';
 import { itemTemplate } from '$utils/countryObjects';
-import { updateDropdownToggle } from '$utils/dropdownToggleUpdate';
 import { getData } from '$utils/fetchAPI';
 import { getGeolocation } from '$utils/geolocation';
 import { createItem } from '$utils/renderList';
 import type { compareAB } from '$utils/types';
+import { updateDropdown } from '$utils/updateDropedown';
 
 window.Webflow ||= [];
 window.Webflow.push(() => {
   (async () => {
-    sessionStorage.clear();
+    // sessionStorage.clear();
 
     const userGeolocation = await getGeolocation();
 
@@ -27,12 +27,16 @@ window.Webflow.push(() => {
 
     countryElements.forEach((data) => createItem(data));
 
-    updateDropdownToggle(countryElements);
+    updateDropdown(countryElements);
 
-    listElement?.addEventListener('click', () => {
+    function updateDropdowntoggle() {
       if (!dropdownElement) return;
+      updateDropdown(countryElements);
       closeDropdown(dropdownElement, true);
-      return updateDropdownToggle(countryElements);
-    });
+      dropdownToggle?.focus();
+      return;
+    }
+
+    listElement?.addEventListener('click', updateDropdowntoggle);
   })();
 });

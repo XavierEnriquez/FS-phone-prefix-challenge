@@ -1,4 +1,4 @@
-import { REVERSE_GEO_URL, TIMEOUT_SEC } from '$utils/config';
+import { GEO_URL, TIMEOUT_SEC } from '$utils/config';
 import { timeout } from '$utils/timeout';
 
 /**
@@ -19,7 +19,7 @@ export const getGeolocation = async () => {
 
     const { latitude: lat, longitude: lng } = position.coords;
 
-    const fetchPromise = await fetch(`${REVERSE_GEO_URL}${lat},${lng}`);
+    const fetchPromise = await fetch(`${GEO_URL}${lat},${lng}`);
     const response = await Promise.race([fetchPromise.json(), timeout(TIMEOUT_SEC)]);
 
     return response.results[0].locations[0].adminArea1;

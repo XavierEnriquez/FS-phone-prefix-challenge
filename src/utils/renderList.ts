@@ -1,6 +1,6 @@
 import { getInputValue, setInputValue } from '$utils/hiddenInput';
 
-import { listElement, listItem } from './config';
+import { dropdownToggle, listElement, listItem } from './config';
 
 /**
  * Renders item elements inside dropdown list element
@@ -15,6 +15,8 @@ export const createItem = function (data: {
   try {
     if (!listItem || !listElement) return;
 
+    listItem?.remove();
+
     const newItem = listItem.cloneNode(true) as HTMLDivElement;
 
     const flag = newItem.querySelector<HTMLImageElement>('[data-element="flag"]');
@@ -28,25 +30,36 @@ export const createItem = function (data: {
 
     setInputValue(data, newItem);
 
-    const defaultSelected = (newItem: HTMLDivElement) => {
+    function defaultSelected(newItem: HTMLDivElement) {
       if (newItem.textContent === getInputValue()) {
         newItem.classList.add('w--current');
         newItem.ariaSelected = 'true';
       }
-    };
+    }
 
-    defaultSelected(newItem);
-
-    listElement?.addEventListener('click', () => {
+    function updateCurrent() {
       newItem.ariaSelected = 'false';
       newItem.classList.remove('w--current');
       if (newItem.textContent === getInputValue()) {
         newItem.classList.add('w--current');
         newItem.ariaSelected = 'true';
       }
-    });
+    }
 
-    return newItem;
+    function focusCurrent() {
+      dropdownToggle?.addEventListener('pointerdown', () => {
+        if (newItem?.classList.contains('w--current')) newItem.focus();
+      });
+
+      defaultSelected(newItem);
+
+      return;
+    }
+
+    focusCurrent();
+    listElement?.addEventListener('click', updateCurrent);
+
+    return;
   } catch (error) {
     return [];
   }

@@ -17,7 +17,6 @@ interface itemObject {
     common: string;
   };
   cca2: string;
-
   idd: {
     root?: string;
     suffixes?: string | [0];
