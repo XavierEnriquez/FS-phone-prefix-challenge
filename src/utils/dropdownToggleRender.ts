@@ -1,6 +1,6 @@
 import type { toggleObject } from '$utils/types';
 
-import { dropdownElement, dropdownToggle, flag, value } from './config';
+import { dropdownEl, toggleEl, flag, value } from './config';
 
 /**
  * Function called inside dropdownToggle function
@@ -9,7 +9,7 @@ import { dropdownElement, dropdownToggle, flag, value } from './config';
  */
 export const renderDropdownToggle = function (data: toggleObject) {
   try {
-    if (!dropdownElement || !dropdownToggle) return;
+    if (!dropdownEl || !toggleEl) return;
 
     if (flag) (flag.src = data.image), (flag.alt = `${data.name} Flag`);
     if (value) value.textContent = `${data.prefix}${data.suffix}`;
@@ -18,7 +18,7 @@ export const renderDropdownToggle = function (data: toggleObject) {
     if (value && data.alphaCode === 'EH') value.textContent = '+212';
     if (value && value.textContent === 'undefined') value.textContent = '+ ?';
 
-    return dropdownToggle;
+    return toggleEl;
   } catch (error) {
     return [];
   }

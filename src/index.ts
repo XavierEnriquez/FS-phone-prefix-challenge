@@ -1,7 +1,7 @@
 import '@finsweet/ts-utils';
 import { closeDropdown } from '@finsweet/ts-utils';
 
-import { dropdownElement, dropdownToggle, listElement } from '$utils/config';
+import { dropdownEl, toggleEl, listEl } from '$utils/config';
 import { itemTemplate } from '$utils/countryObjects';
 import { fetchApi } from '$utils/fetchAPI';
 import { getGeolocation } from '$utils/geolocation';
@@ -30,13 +30,13 @@ window.Webflow.push(() => {
     updateDropdown(countryElements);
 
     function updateDropdowntoggle() {
-      if (!dropdownElement) return;
+      if (!dropdownEl) return;
       updateDropdown(countryElements);
-      closeDropdown(dropdownElement, true);
-      dropdownToggle?.focus();
+      closeDropdown(dropdownEl, true);
+      toggleEl?.focus();
       return;
     }
 
-    listElement?.addEventListener('click', updateDropdowntoggle);
+    listEl?.addEventListener('click', updateDropdowntoggle);
   })();
 });
