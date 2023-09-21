@@ -1,7 +1,7 @@
 import type { toggleObject } from '$utils/types';
 
 import { getInputValue } from './hiddenInput';
-import { renderDropdownToggle } from './renderDropdown';
+import { toggleRender } from './toggleRender';
 
 /**
  * Recieves the countryElements and filters them, matching the countryCode value stored in the hidden input field
@@ -13,7 +13,7 @@ export function updateDropdown(countryElements: toggleObject[]) {
     const countryElement = countryElements.filter((el: toggleObject) => {
       return el.alphaCode === getInputValue();
     });
-    return countryElement.forEach((data) => renderDropdownToggle(data));
+    return countryElement.forEach((data) => toggleRender(data));
   } catch (error) {
     return [];
   }

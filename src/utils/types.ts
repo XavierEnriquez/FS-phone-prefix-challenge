@@ -9,8 +9,8 @@ interface compareAB {
 }
 
 /**
- * Sets types for dropdown list element items.
- * Properties are passed on to (createItem) function
+ * Sets types for items in dropdown list.
+ * Properties are passed on to createItem() function
  */
 interface itemObject {
   name: {

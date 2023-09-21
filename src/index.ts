@@ -12,7 +12,7 @@ import { updateDropdown } from '$utils/updateDropedown';
 window.Webflow ||= [];
 window.Webflow.push(() => {
   (async () => {
-    // sessionStorage.clear();
+    sessionStorage.clear();
 
     const userGeolocation = await getGeolocation();
 
@@ -26,8 +26,6 @@ window.Webflow.push(() => {
     });
 
     countryElements.forEach((data) => createItem(data));
-
-    updateDropdown(countryElements);
 
     function updateDropdowntoggle() {
       if (!dropdownEl) return;

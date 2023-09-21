@@ -7,17 +7,17 @@ import { timeout } from '$utils/timeout';
  */
 export const getGeolocation = async () => {
   try {
-    const getLatLong = async () => {
-      return new Promise<GeolocationPosition>(function (latlong) {
-        navigator.geolocation.getCurrentPosition(latlong);
+    const getlatlng = async () => {
+      return new Promise<GeolocationPosition>(function (latlng) {
+        navigator.geolocation.getCurrentPosition(latlng);
       });
     };
 
-    const latLong: { coords: { latitude: number; longitude: number } } = await getLatLong();
+    const latlng: { coords: { latitude: number; longitude: number } } = await getlatlng();
 
-    if (!latLong) return;
+    if (!latlng) return;
 
-    const { latitude: lat, longitude: lng } = latLong.coords;
+    const { latitude: lat, longitude: lng } = latlng.coords;
 
     const fetchPromise = await fetch(`${GEO_URL}${lat},${lng}`);
     const response = await Promise.race([fetchPromise.json(), timeout(TIMEOUT_SEC)]);
